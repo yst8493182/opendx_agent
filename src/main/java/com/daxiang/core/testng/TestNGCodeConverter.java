@@ -166,6 +166,10 @@ public abstract class TestNGCodeConverter {
         javaImports.add("import java.util.*");
         javaImports.add("import static org.assertj.core.api.Assertions.*");
 
+        //add by yifeng, 解析json需要，后面考虑以外部包的形式导入
+        javaImports.add("import org.json.JSONException");
+        javaImports.add("import org.json.JSONObject");
+
         addJavaImports(javaImports);
 
         cachedActions.values().forEach(action -> {

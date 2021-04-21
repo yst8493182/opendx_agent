@@ -62,6 +62,9 @@ public class ServerClient {
     private String mobileSaveUrl;
     @Value("${server}/browser/save")
     private String browserSaveUrl;
+    //add by yifeng
+    @Value("${server}/mobile/{mobileId}")
+    private String moblieDeleteUrl;
     @Value("${server}/driver/downloadUrl")
     private String driverDownloadUrl;
 
@@ -182,6 +185,13 @@ public class ServerClient {
         if (!response.isSuccess()) {
             throw new RuntimeException(response.getMsg());
         }
+    }
+
+    //add by yifeng,增加主动上报设备删除接口
+    public void deleteMobile(String mobileId) {
+        Assert.hasText(mobileId, "mobileId不能为空");
+        restTemplate.delete(moblieDeleteUrl, mobileId);
+        log.info("成功向server 删除: " + mobileId);
     }
 
     public void saveBrowser(Browser browser) {

@@ -17,7 +17,9 @@ public abstract class MobileChangeHandler {
     protected void mobileConnected(IDevice iDevice) {
         String mobileId = iDevice.getSerialNumber();
 
+        //维持一个已连接列表
         Device device = DeviceHolder.get(mobileId);
+        //yifeng,从这里可以看出，一个appium server端对应于一个设备
         if (device == null) {
             log.info("[{}]首次接入agent", mobileId);
 
@@ -28,6 +30,7 @@ public abstract class MobileChangeHandler {
             appiumServer.start();
             log.info("[{}]启动appium server完成, url: {}", mobileId, appiumServer.getUrl());
 
+            //整个逻辑有两重判断，一个是是不是首次接入到agent ,一个是是不是首次接入到server
             if (mobile == null) {
                 try {
                     log.info("[{}]首次接入server，开始初始化...", mobileId);
@@ -43,12 +46,14 @@ public abstract class MobileChangeHandler {
             }
 
             beforePutDeviceToHolder(device);
+            //yifeng,保存设备列表
             DeviceHolder.put(mobileId, device);
         } else {
             log.info("[{}]重新接入agent", mobileId);
             reconnectToAgent(device, iDevice);
         }
 
+        //这里把设备更新上传到server端
         device.onlineToServer();
         log.info("[{}]MobileConnected处理完成", mobileId);
     }

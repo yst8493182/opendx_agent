@@ -6,7 +6,7 @@
 
     <groupId>com.daxiang</groupId>
     <artifactId>agent</artifactId>
-    <version>0.8.6</version>
+    <version>0.8.8</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -16,7 +16,7 @@
         <selenium.version>3.141.59</selenium.version>
     </properties>
 
-	<parent>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.4.RELEASE</version>
@@ -122,6 +122,12 @@
             <artifactId>org.eclipse.jdt.core</artifactId>
             <version>3.24.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.bidib.jbidib.org.qbang.rxtx</groupId>
+            <artifactId>rxtxcomm</artifactId>
+            <version>2.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>

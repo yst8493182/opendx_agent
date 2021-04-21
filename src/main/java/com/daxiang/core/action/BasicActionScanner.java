@@ -25,6 +25,7 @@ import java.util.stream.Stream;
 /**
  * Created by jiangyitao.
  */
+//action 的加载方法，这个也比较重要
 public class BasicActionScanner {
 
     // 废弃的action分类id

@@ -4,6 +4,7 @@ import com.daxiang.core.Device;
 import com.daxiang.core.mobile.Mobile;
 import com.daxiang.core.mobile.MobileDevice;
 import com.daxiang.core.DeviceHolder;
+import com.daxiang.core.tv.TvDevice;
 import com.daxiang.exception.AgentException;
 import com.daxiang.utils.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +49,10 @@ public class MobileService {
         }
 
         Device device = DeviceHolder.get(mobileId);
+        if(mobileId.contains("-COM") ){
+            log.info("get serial mobile in mobileservice");
+            return device == null ? null : ((TvDevice) device).getMobile();
+        }
         return device == null ? null : ((MobileDevice) device).getMobile();
     }
 
@@ -59,6 +64,12 @@ public class MobileService {
         Device device = DeviceHolder.remove(mobileId);
         if (device == null) {
             return null;
+        }
+
+        //满足串口的情况，不需要处理一下appium 服务
+        if(mobileId.contains("-COM") ){
+            log.info("delete in mobileservice");
+            return ((TvDevice) device).getMobile();
         }
 
         device.getDeviceServer().stop();

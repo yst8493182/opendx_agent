@@ -103,7 +103,6 @@ public class AgentStartRunner implements ApplicationRunner {
 
         BasicActionScanner basicActionScanner = new BasicActionScanner();
         List<Action> basicActions = basicActionScanner.scanRecursive(basicActionPackage);
-        log.info("scan: {}, basicActions: {}", basicActionPackage, basicActions);
         serverClient.resetBasicAction(basicActions);
 
         // 初始化extJars

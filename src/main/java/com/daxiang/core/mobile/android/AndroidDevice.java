@@ -71,6 +71,10 @@ public class AndroidDevice extends MobileDevice {
         this.iDevice = iDevice;
     }
 
+    public AndroidDevice(Mobile mobile) {
+        super(mobile);
+    }
+
     @Override
     public RemoteWebDriver newDriver() {
         return new AndroidDriver(deviceServer.getUrl(), caps);

@@ -7,4 +7,5 @@ public interface ProjectPlatform {
     int ANDROID = 1;
     int iOS = 2;
     int WEB = 3;
+    int SERIAL = 4;
 }

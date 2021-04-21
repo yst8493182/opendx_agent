@@ -19,6 +19,8 @@ public class IosAction extends MobileAction {
         super(iosDevice);
     }
 
+    //note by yifeng,无ios相关需求，暂时屏蔽掉ios相关用例
+    /*
     @Action(id = 3000, name = "启动/重启app", platforms = 2)
     public void restartIosApp(String bundleId) {
         Assert.hasText(bundleId, "bundleId不能为空");
@@ -27,4 +29,5 @@ public class IosAction extends MobileAction {
         IosUtil.terminateApp(driver, bundleId);
         IosUtil.launchApp(driver, bundleId);
     }
+    */
 }

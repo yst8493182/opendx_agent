@@ -10,6 +10,7 @@ import com.daxiang.utils.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.dvare.dynamic.exceptions.DynamicCompilerException;
+import org.eclipse.jface.text.BadLocationException;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.util.StringUtils;
@@ -63,11 +64,19 @@ public class DeviceTestTaskExecutor {
 
         // device变为使用中
         device.usingToServer(deviceTestTask.getTestPlan().getName());
-
+        String code;
         try {
             String className = "Test_" + UUIDUtil.getUUID();
-            String code = TestNGCodeConverterFactory.create(deviceTestTask.getPlatform())
-                    .convert(deviceTestTask, className);
+            //add by yifeng,这里由于没有把窗口分离出特定平台，所以先通过id匹配查询
+            if(deviceTestTask.getDeviceId().contains("-COM")) {
+                 code = TestNGCodeConverterFactory.create(ProjectPlatform.SERIAL)
+                        .convert(deviceTestTask, className);
+            } else{
+                 code = TestNGCodeConverterFactory.create(deviceTestTask.getPlatform())
+                        .convert(deviceTestTask, className);
+            }
+            //add by yifeng
+            //System.out.println(code);
             updateDeviceTestTaskCode(deviceTestTask.getId(), code);
 
             Class clazz = JavaCompiler.compile(className, code);
@@ -82,7 +91,10 @@ public class DeviceTestTaskExecutor {
                 }
             }
 
-            device.freshDriver(caps, true);
+            //note by yifeng ,这个的用途是什么？
+            if(!deviceTestTask.getDeviceId().contains("-COM")) {
+                device.freshDriver(caps, true);
+            }
 
             TestNGRunner.runTestCases(new Class[]{clazz}, deviceTestTask.getTestPlan().getFailRetryCount());
         } catch (TestNGCodeConvertException | DynamicCompilerException e) {

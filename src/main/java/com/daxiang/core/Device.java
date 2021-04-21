@@ -50,6 +50,13 @@ public abstract class Device {
         agentPort = Integer.parseInt(App.getProperty("port"));
     }
 
+    public Device() {
+        deviceTestTaskExecutor = new DeviceTestTaskExecutor(this);
+        serverClient = ServerClient.getInstance();
+        agentIp = App.getProperty("ip");
+        agentPort = Integer.parseInt(App.getProperty("port"));
+    }
+
     public DeviceServer getDeviceServer() {
         return deviceServer;
     }

@@ -98,6 +98,7 @@ public class AndroidDeviceChangeListener extends MobileChangeHandler implements 
             log.info("[{}]安装{}完成", mobileId, APIDEMOS_APK);
         }
 
+        //大于android 5的直接走到了这里
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("skipServerInstallation", false);
         caps.setCapability("skipDeviceInitialization", false);

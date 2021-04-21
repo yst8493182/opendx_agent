@@ -2,6 +2,7 @@ package com.daxiang.core.testng;
 
 import com.daxiang.core.ProjectPlatform;
 import com.daxiang.core.mobile.android.AndroidTestNGCodeConverter;
+import com.daxiang.core.mobile.android.TvTestNGCodeConverter;
 import com.daxiang.core.mobile.ios.IosTestNGCodeConverter;
 import com.daxiang.core.pc.web.BrowserTestNGCodeConverter;
 
@@ -16,6 +17,8 @@ public class TestNGCodeConverterFactory {
             return new IosTestNGCodeConverter();
         } else if (projectPlatform == ProjectPlatform.WEB) {
             return new BrowserTestNGCodeConverter();
+        } else if (projectPlatform == ProjectPlatform.SERIAL) {
+            return new TvTestNGCodeConverter();
         }
 
         throw new IllegalArgumentException("不支持的projectPlatform: " + projectPlatform);

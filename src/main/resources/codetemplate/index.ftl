@@ -15,7 +15,9 @@ public class ${className} {
 
     @BeforeSuite
     public void beforeSuite() throws Throwable {
-        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+        if(driver != null) {
+            PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+        }
     }
 
     <#include "before_after.ftl"/>

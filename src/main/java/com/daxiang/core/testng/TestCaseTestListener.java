@@ -176,6 +176,10 @@ public class TestCaseTestListener extends TestListenerAdapter {
     }
 
     private String uploadScreenshot(TestDescription testDesc) {
+        //add by yifeng, 串口测试不截图
+        if (testDesc.getDeviceId().contains("-COM")){
+            return null;
+        }
         try {
             log.info("[{}]testcaseId: {}, 上传截图...", testDesc.getDeviceId(), testDesc.getTestcaseId());
             return DeviceHolder.get(testDesc.getDeviceId()).screenshotAndUploadToServer().getFilePath();
@@ -185,6 +189,7 @@ public class TestCaseTestListener extends TestListenerAdapter {
         }
     }
 
+    //add by yifeng,对于串口获取日志的形式，要研究一下
     private String uploadLog(TestDescription testDesc) {
         try {
             log.info("[{}]testcaseId: {}, 获取日志...", testDesc.getDeviceId(), testDesc.getTestcaseId());

@@ -36,6 +36,11 @@ public abstract class MobileDevice extends Device {
         this.mobile = mobile;
     }
 
+    public MobileDevice(Mobile mobile) {
+        super();
+        this.mobile = mobile;
+    }
+
     public abstract void uninstallApp(String app) throws Exception;
 
     /**

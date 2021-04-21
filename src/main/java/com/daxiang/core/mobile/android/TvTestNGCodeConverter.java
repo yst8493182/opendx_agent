@@ -1,40 +1,37 @@
-package com.daxiang.core.pc.web;
+package com.daxiang.core.mobile.android;
 
-import com.daxiang.action.PCWebAction;
+import com.daxiang.action.AndroidAction;
 import com.daxiang.core.testng.TestNGCodeConverter;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import com.daxiang.core.tv.TvDevice;
+import io.appium.java_client.android.AndroidDriver;
 
 import java.util.Set;
 
-/**
- * Created by jiangyitao.
- */
-public class BrowserTestNGCodeConverter extends TestNGCodeConverter {
+public class TvTestNGCodeConverter extends TestNGCodeConverter {
     @Override
     protected Class getDriverClass() {
-        return RemoteWebDriver.class;
+        return AndroidDriver.class;
     }
 
     @Override
     protected Class getActionClass() {
-        return PCWebAction.class;
+        return AndroidAction.class;
     }
 
     @Override
     protected Class getDeviceClass() {
-        return BrowserDevice.class;
+        return TvDevice.class;
     }
 
     @Override
     protected void addJavaImports(Set<String> javaImports) {
-        //add by yifeng,多导包防止serial 和 web 混合时编译不过
+        javaImports.add("import com.daxiang.core.tv.TvDevice");
+        javaImports.add("import com.daxiang.action.AndroidAction");
+        javaImports.add("import io.appium.java_client.android.AndroidDriver");
         javaImports.add("import com.daxiang.core.pc.web.BrowserDevice");
         javaImports.add("import org.openqa.selenium.remote.RemoteWebDriver");
         javaImports.add("import com.daxiang.action.PCWebAction");
-        javaImports.add("import com.daxiang.core.tv.TvDevice");
         javaImports.add("import com.daxiang.core.mobile.android.AndroidDevice");
-        javaImports.add("import com.daxiang.action.AndroidAction");
-        javaImports.add("import io.appium.java_client.android.AndroidDriver");
     }
 
 }
