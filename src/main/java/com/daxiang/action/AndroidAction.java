@@ -43,11 +43,6 @@ public class AndroidAction extends MobileAction {
         this.tvDevice = tvDevice;
     }
 
-    //for debug;
-    public AndroidAction() {
-        super();
-    }
-
     @Action(id = 2000, name = "[android]清除apk数据", platforms = 1)
     public void clearApkData(@Param(description = "包名") String packageName) throws IDeviceExecuteShellCommandException {
         AndroidUtil.clearApkData(androidDevice.getIDevice(), packageName);

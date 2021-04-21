@@ -27,7 +27,7 @@ public class BrowserTestNGCodeConverter extends TestNGCodeConverter {
 
     @Override
     protected void addJavaImports(Set<String> javaImports) {
-        //add by yifeng,多导包防止serial 和 web 混合时编译不过
+        //add by yifeng
         javaImports.add("import com.daxiang.core.pc.web.BrowserDevice");
         javaImports.add("import org.openqa.selenium.remote.RemoteWebDriver");
         javaImports.add("import com.daxiang.action.PCWebAction");

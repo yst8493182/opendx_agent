@@ -29,10 +29,6 @@ import static org.assertj.core.api.Assertions.*;
 public class Test {
 
    public static void main(String[] args) throws Exception {
-      AndroidAction androidAction = new AndroidAction();
-      String cmd = "\nsvc help\n";
-      String s = SerialTool.execSerialCmd("COM4",cmd,2000);
-      System.out.println(s);
    }
 
 }
