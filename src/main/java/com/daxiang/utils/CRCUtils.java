@@ -42,8 +42,7 @@ public class CRCUtils {
             return false;
         }
         try{
-            if (jsonObject.get("Auth").equals(CRCCheck(""+jsonObject.get("Result") + jsonObject.get("Command")))
-                && jsonObject.get("Command").equals("Success")){
+            if (jsonObject.get("Auth").equals(CRCCheck(""+jsonObject.get("Result") + jsonObject.get("Time")))) {
                 return true;
             }
         }catch (JSONException e){

@@ -16,6 +16,11 @@ public class SerialTool {
     private static final String testResultPath = "/data/test_result/";
 
     //获得系统可用的端口
+    //有隐患，打开蓝牙后也会生成一个COM口，目前无法判断该COM口是不是蓝牙生成的。
+    // 发现电脑使用mode命令，可以只查到一个COM口，不会查到蓝牙COM口
+    // 还有另一种情况，一个串口板会虚拟出两个COM口，其中一个正常，另一个能够下命令但是不会在串口输出任何信息
+    // 两个COM口可以同时打开，异常串口的输入信息会同步到正常串口
+    // 针对两个COM口的情况需要检测串口时就尝试执行命令获取结果
     @SuppressWarnings("unchecked")
     public static List<String> getSerialPortList() {
         List<String> systemPorts = new ArrayList<>();
@@ -34,7 +39,7 @@ public class SerialTool {
             System.out.println("输入端口为null");
             return false;
         }
-        List<String> AllSerialPort = SerialTool.getSerialPortList();
+        List<String> AllSerialPort = getSerialPortList();
         if (AllSerialPort.contains(port)) {
             return true;
         }
@@ -142,17 +147,14 @@ public class SerialTool {
         byte[] bytes = SerialTool.readData(port);
         if (bytes == null)
         {
-            System.out.println("yifeng,output is null");
             return null;
         } else {
             String res = new String(bytes);
-            //去掉输入命令后的回显和BeyondTv
-            //return DeleteFeedback(res);
             if(StringUtils.isEmpty(res)) {
                 return null;
             }
-            return SerialOutGetJson(res);
             //return res;
+            return SerialOutGetJson(res);
         }
     }
 
@@ -297,9 +299,7 @@ public class SerialTool {
                 }
                 if (serialPortEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
                     byte[] bytes = readData(serialPort);
-                    if (bytes == null) {
-                        System.out.println("yifeng,output is null");
-                    } else {
+                    if (bytes != null) {
                         String res = new String(bytes);
                         array.add(res);
                     }

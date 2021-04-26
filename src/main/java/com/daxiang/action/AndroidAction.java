@@ -78,7 +78,8 @@ public class AndroidAction extends MobileAction {
 
     //串口结果正确性校验
     //需要限定返回值的格式，目前限定为json格式
-    //必须要有字段{“Result”:String,"Command":String,"Auth":String};
+    //必须要有字段{“Result”:String,"Time":String,"Auth":String};
+    //Result为Failure时带Reason字段，为Success时带Return字段
     //可以携带额外字段，但字符总长度不能超过3000字符
     //校验的时候一同判断命令的结果
     @Action(id = 2011, name = "[serial]串口结果校验", returnValueDesc = "串口读取是否有效")
