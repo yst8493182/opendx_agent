@@ -329,7 +329,7 @@ public class SerialTool {
 //        }
         log.info(input);
         try{
-            return input.substring(input.indexOf("{"),input.indexOf("}")+1);
+            return input.substring(input.indexOf("{"),input.lastIndexOf("}")+1);
         } catch (Exception e) {
             log.warn("there have error in split json, return null");
             return null;
